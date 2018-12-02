@@ -1,0 +1,7 @@
+Chef is also a configuration tool like ansible which can automates tasks
+it has three components
+1. chef server 2. chef client 3. chef dk
+
+it is a client based means client need to installed on nodes
+it works on pull machinism of pull to pull all task at once to avoid n/w choking.
+version is also present in case you want to roll back
