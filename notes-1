@@ -39,7 +39,7 @@ there are two ways to create it.
 Manually
 see once you install chefdk it does not install chef-repo on its own.
 we creake a director
-mkdir chef-repo
+chef generate app chef-repo //or mkdir chef-repo
 now this will create a director and if you do ls you will see some files like cookbooks.
 again create a dir .chef inside chef-repo
 mkdir .chef
