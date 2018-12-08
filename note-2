@@ -1,0 +1,114 @@
+
+chef generate cookbook sample
+knife node list
+knife ssl fetch
+knife cookbook list
+knife environment list
+knife cookbook upload sample
+instead of downloading the client at remote node we can push it from chefdk server 
+#knife bootstarp ssh username(sunnysisgone)@hostname(server4) 
+#-i devops.pem(already stored inside ~) --sudo(as root) -N nodename(any new name you want to give
+
+above command will do the config on remote node
+
+now on the remote node we can run
+chef-client -o recipe[sample]
+
+if you change anythging on chefdk , run knife cookbook upload sample
+chefdk will upload it to chef server
+now go to chef client and run chef-client -o recipe[sample]
+
+*********************************************************************
+
+chef generate cookbook stack
+ls
+cd recipe
+ls
+it will only one default recipe default.rb
+create three recipe for httpd, apache and db
+touch web.rb
+touch app.rb
+touch db.rb
+
+*********************************
+lets start with mariadb
+ google package installtion in chef
+you will find all the instrution.
+
+syntex will be like:
+package 'name' do
+  allow_downgrade            true, false # Yum, RPM packages only
+  arch                       String, Array # Yum packages only
+  default_release            String # Apt packages only
+  flush_cache                Array
+  gem_binary                 String
+  homebrew_user              String, Integer # Homebrew packages only
+  notifies                   # see description
+  options                    String
+  package_name               String, Array # defaults to 'name' if not specified
+  response_file              String # Apt packages only
+  response_file_variables    Hash # Apt packages only
+  source                     String
+  subscribes                 # see description
+  timeout                    String, Integer
+  version                    String, Array
+  action                     Symbol # defaults to :install if not specified
+end
+
+*********************************
+for our requirement
+
+package "installing mariadb" do
+
+package_name  "mariadb-server"
+action :install
+
+end
+
+
+service 'starting mariadb-server' do
+  init_command         String
+  options              Array, String
+  reload_command       String, false
+  restart_command      String, false
+  run_levels           Array
+  service_name         mariadb-server
+  start_command        String, false
+  user                 String
+  action               [ :enable, :start ]
+
+end
+
+
+inside stack also create mkfir files
+vi student.sql
+copy paste below content
+*********************************
+reate database if not exists studentapp;
+use studentapp;
+CREATE TABLE if not exists Students(student_id INT NOT NULL AUTO_INCREMENT,
+	student_name VARCHAR(100) NOT NULL,
+        student_addr VARCHAR(100) NOT NULL,
+	student_age VARCHAR(3) NOT NULL,
+	student_qual VARCHAR(20) NOT NULL,
+	student_percent VARCHAR(10) NOT NULL,
+	student_year_passed VARCHAR(10) NOT NULL,
+	PRIMARY KEY (student_id)
+);
+grant all privileges on studentapp.* to 'student'@'%' identified by 'student@1';
+flush privileges;
+*************************************
+
+
+cookbook_file " copying stduent.sql file to remote node "  do
+source 'stduent.sql'
+path  '/tmp/student.sql
+action :create
+end
+
+excecute "run the mysql command" do
+command 'mysql < /tmp/student.sql
+end
+
+*****************
+chef-client -o recipe[stack::db]
