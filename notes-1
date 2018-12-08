@@ -19,7 +19,7 @@ sudo chef-manage-ctl reconfigure --accept-license
 
 All done for chef server
 
-also make entery in etc/hosts
+also make entry in etc/hosts
 sudo vi /etc/hosts
 ip address name
 e.g in my case
@@ -37,10 +37,10 @@ now we need chef-repo director which will contain a hidden director .chef
 there are two ways to create it.
 
 Manually
-see once you install chefdk it does not install chef-repo on its own.
+See once you install chefdk it does not install chef-repo on its own.
 we creake a director
-chef generate app chef-repo //or mkdir chef-repo
-now this will create a director and if you do ls you will see some files like cookbooks.
+mkdir chef-repo
+now this will create a director 
 again create a dir .chef inside chef-repo
 mkdir .chef
 
@@ -77,6 +77,8 @@ you have to change only
 4.chef_server_url
 5.add ssl_verify_mode : verify_none in case you keep getting ssl error
 
+chef generate app chef-repo or chef generate cookbook sample 
+it will generate cooksbooks
 
 ***************************
 2nd method.
