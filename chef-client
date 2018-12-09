@@ -1,0 +1,5 @@
+there are two ways to download chef client.
+either we download it from chef website on to the node or 
+run the below command from chefdk.
+knife bootstrap sunnyisgone(username)@server4(hostname) -i devops.pem(private key location on current dir) --sudo(as root)
+
