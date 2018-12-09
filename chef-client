@@ -1,5 +1,23 @@
-there are two ways to download chef client.
-either we download it from chef website on to the node or 
-run the below command from chefdk.
-knife bootstrap sunnyisgone(username)@server4(hostname) -i devops.pem(private key location on current dir) --sudo(as root)
+chef Client setup
+
+su root
+curl -L https://omnitruck.chef.io/install.sh | sudo bash
+
+mkdir /etc/chef
+
+vi client.rb
+******************************************************
+chef_server_url  'https://chefserver(name or ip of chef server)/organizations/student'
+validation_client_name 'student-validator'
+validation_key "/etc/chef/validator.pem"
+ssl_verify_mode :verify_none
+
+**********************************************************
+
+
+#create a validator file. 
+#open your chef server in the browser 
+#policy-client-reset select your org name and reset validator key
+#copy and paste in validator.pem
+vi validator.pem
 
