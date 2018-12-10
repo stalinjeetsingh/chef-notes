@@ -1,0 +1,25 @@
+chef generate will make 3 files e.g cookbooks, roles etc
+now this role is another way of running recipe.
+in case of cookbook---> recipe we have to change or run them one by one
+but in roles we can make or call them at a single place
+inside roles---> create stack.rb (or any name you want)
+
+***********************************
+name "stack"
+description "Role for Stack"
+run_list "recipe[stack::app]", "recipe[stack::db]"
+env_run_lists "prod" => ["recipe[stack::app]"], "dev" => ["recipe[stack::app]", "recipe[stack::db]"], "_default" => []
+#default_attributes "apache2" => { "listen_ports" => [ "80", "443" ] }
+#override_attributes "apache2" => { "max_children" => "50" }
+
+**************************************************************
+
+Now you only need to add recipe[stack::****] to add anthing new. 
+no need to touch nodes)
+all the server using that role will get update.
+
+##
+knife role from file stack
+knife role list
+knife node run_list set server4 role[stack]
+
