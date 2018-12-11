@@ -36,3 +36,15 @@ description 'new dev environment created
 knife environment from file dev.rb
 this will update our default evn with dev 
 run knife environment list to chec the environment list
+
+How to apply this dev
+chef-client -E dev
+**********************
+or 
+also we can edit client.rb to include new env
+we only need to run chef-client it will automatically pick the env defined in client rb file
+**************************
+envorinment "dev"
+
+***************************
+
