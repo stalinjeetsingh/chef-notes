@@ -23,3 +23,16 @@ knife role from file stack
 knife role list
 knife node run_list set server4 role[stack]
 
+***********************************
+knife environment list
+Default will always be there.
+
+
+we can define a dev.rb 
+********************************
+name  'dev'
+description 'new dev environment created
+*******************************
+knife environment from file dev.rb
+this will update our default evn with dev 
+run knife environment list to chec the environment list
